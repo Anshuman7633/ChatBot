@@ -5,6 +5,7 @@ import subprocess
 import sys
 import datetime
 import pyttsx3
+import math
 
 def open_website(website_url):
     webbrowser.open(website_url)
@@ -54,125 +55,104 @@ def introduce_yourself():
     speak(introduction)
 
 def suggest_anime(genre):
-    anime_by_genre = {
-        "action": ["Naruto", "Attack on Titan", "My Hero Academia", "One Punch Man", "Bleach"],
-        "adventure": ["Hunter x Hunter", "One Piece", "Sword Art Online", "Fullmetal Alchemist", "Fairy Tail"],
-        "comedy": ["One Piece", "Gintama", "Konosuba: God's Blessing on This Wonderful World!", "Nichijou", "KonoSuba"],
-        "fantasy": ["Fate/stay night", "Black Clover", "The Rising of the Shield Hero", "Re:Zero - Starting Life in Another World", "Overlord"],
-        "drama": ["Your Lie in April", "Clannad", "Anohana: The Flower We Saw That Day", "Violet Evergarden", "A Silent Voice"],
-        "romance": ["Toradora!", "Clannad", "Your Lie in April", "Fruits Basket", "My Love Story!!"],
-    }
-
-    anime_summaries = {
-        "Naruto": "Naruto is a young ninja who seeks recognition from his peers and dreams of becoming the Hokage, the leader of his village.",
-        "Attack on Titan": "In a world where humanity resides within enormous walled cities to protect themselves from Titans, gigantic humanoid creatures, a young boy named Eren Yeager vows to rid the world of the Titans and seek revenge for the destruction of his home.",
-        "My Hero Academia": "In a world where people with superpowers (known as Quirks) are the norm, a boy without them desperately wants to enroll in a prestigious hero academy and learn what it really means to be a hero.",
-        "One Punch Man": "Saitama is a superhero who can defeat any opponent with a single punch, but he is bored and frustrated because he can find no worthy opponents.",
-        "Bleach": "Ichigo Kurosaki, a teenager with the ability to see ghosts, accidentally obtains soul reaper powers and must protect the living world from evil spirits known as Hollows.",
-        "Hunter x Hunter": "Gon Freecss sets out on a journey to become a hunter, a special title that allows him to search for his missing father, but the path to becoming a hunter is full of challenges.",
-        "One Piece": "Monkey D. Luffy and his pirate crew set out on an adventure to find the ultimate treasure known as One Piece and become the Pirate King.",
-        "Sword Art Online": "Players of a virtual reality MMORPG get trapped inside the game, and to escape, they must clear all 100 floors of the game's tower.",
-        "Fullmetal Alchemist": "Two brothers, Edward and Alphonse Elric, use alchemy in their quest to search for the Philosopher's Stone to restore their bodies after a failed alchemy experiment.",
-        "Fairy Tail": "Lucy Heartfilia joins the Fairy Tail guild and goes on adventures with her friends, experiencing both joy and sorrow as they face various challenges.",
-        "Gintama": "In an alternate-history Japan invaded by aliens, the samurai Gintoki Sakata and his friends take on odd jobs to make a living and protect their freedom.",
-        "Konosuba: God's Blessing on This Wonderful World!": "Kazuma Sato, after dying a comically absurd death, is given the chance to start a new life in a fantasy world, but it's not quite the adventure he expected.",
-        "Nichijou": "The daily lives of three friends and their fellow high school students are anything but ordinary as they encounter strange phenomena and absurd situations.",
-        "KonoSuba": "After dying a laughable and pathetic death on his way back from buying a game, Kazuma Satou is given the choice to go to heaven or start life in a fantasy world.",
-        "Fate/stay night": "Shirou Emiya is thrust into a world of danger and deception, where he must participate in the Holy Grail War, a deadly tournament to obtain a wish-granting artifact.",
-        "Black Clover": "Asta, a boy born without magic in a world where magic is everything, aims to become the Wizard King, the greatest mage in the kingdom.",
-        "The Rising of the Shield Hero": "Iwatani Naofumi is summoned to another world as one of the four legendary heroes, but he is soon betrayed and must rise to become the Shield Hero.",
-        "Re:Zero - Starting Life in Another World": "Subaru Natsuki is transported to a fantasy world, where he discovers he has the ability to reset time whenever he dies, leading to countless challenges.",
-        "Overlord": "Momonga, an ordinary salaryman, is transported to a virtual reality game world as his in-game character and decides to rule the world as the all-powerful overlord.",
-        "Your Lie in April": "A piano prodigy suffering from the trauma of his mother's death meets a spirited violinist who helps him rediscover his love for music.",
-        "Clannad": "Tomoya Okazaki meets a strange girl named Nagisa Furukawa, and their encounter changes their lives as they experience love, friendship, and hardships together.",
-        "Anohana: The Flower We Saw That Day": "A group of childhood friends reunite to help the ghost of a deceased friend fulfill her wish and find closure for their unresolved feelings.",
-        "Violet Evergarden": "Violet Evergarden, a former soldier, becomes an Auto Memory Doll and helps people express their feelings through beautifully written letters.",
-        "A Silent Voice": "Shoya Ishida, a former bully, seeks redemption and attempts to reconnect with Shoko Nishimiya, a deaf girl he tormented in elementary school.",
-        "Toradora!": "Ryuuji Takasu and Taiga Aisaka team up to help each other confess to their crushes, but their plan leads to unexpected feelings and complications.",
-        "Fruits Basket": "After Tohru Honda learns the family secret of the Sohma family, she becomes involved in their lives and helps them break the curse that turns them into animals of the Chinese zodiac.",
-        "My Love Story!!": "Takeo Gouda, a tall and muscular guy, falls in love with the sweet and petite Rinko Yamato, and their relationship faces numerous challenges and heartwarming moments.",
-    }
-
     genre = genre.lower()
+    search_query = f"best {genre} anime"
+    search_url = f"https://www.google.com/search?q={search_query}"
+    print(f"Opening Google search for: {search_query}")
+    speak(f"Opening Google search for: {search_query}")
+    webbrowser.open(search_url)
 
-    if genre in anime_by_genre:
-        suggestions = anime_by_genre[genre]
-        suggestion = random.choice(suggestions)
-        print(f"Based on the {genre} genre, I suggest you watch: {suggestion}")
-        speak(f"Based on the {genre} genre, I suggest you watch: {suggestion}")
+def add(x, y):
+    return x + y
 
-        if suggestion in anime_summaries:
-            summary = anime_summaries[suggestion]
-            print("Summary:", summary)
-            speak("Summary: " + summary)
+def subtraction(x, y):
+    return x - y
+
+def multiplication(x, y):
+    return x * y
+
+def integer_square_root(x):
+    if x < 0:
+        raise ValueError("Can't take the root of a negative number.")
+    return math.isqrt(x)
+
+def calculator():
+    print("Select operation:")
+    print("1. Add")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Integer Square Root")
+    
+    while True:
+        choice = input("Enter choice (1/2/3/4): ")
+        if choice in ('1', '2', '3'):
+            num1 = int(input("Enter first number: "))
+            num2 = int(input("Enter second number: "))
+            if choice == '1':
+                print(num1, "+", num2, "=", add(num1, num2))
+            elif choice == '2':
+                print(num1, "-", num2, "=", subtraction(num1, num2))
+            elif choice == '3':
+                print(num1, "*", num2, "=", multiplication(num1, num2))
+        elif choice == '4':
+            num = int(input("Enter the number: "))
+            try:
+                result = integer_square_root(num)
+                print(f"The square root of {num} is: {result}")
+            except ValueError as e:
+                print(e)
         else:
-            print("Sorry, I don't have a summary for this anime.")
-            speak("Sorry, I don't have a summary for this anime.")
-    else:
-        print("Sorry, I don't have any anime suggestions for that genre.")
-        speak("Sorry, I don't have any anime suggestions for that genre.")
+            print("Invalid input")
+
+        next_calculation = input("Do you want to perform another calculation? (y/n): ")
+        if next_calculation != 'y':
+            break
 
 def chatbot():
-    responses = {
-        "hello": ["Hi there!", "Hello!", "Hi!"],
-        "how are you": ["I'm doing well, thank you!", "I'm good, thanks for asking!"],
-        "what's your name": ["My name is Friday!", "I'm Friday!"],
-        "introduction": [introduce_yourself],
-        "open website": ["Sure! Which website would you like me to open?", "Opening the website you requested."],
-        "open camera": ["Sure! Opening the camera.", "Let's open the camera."],
-        "open camera app": ["Sure! Opening the camera app.", "Let's open the camera app."],
-        "show date and time": ["Sure! Here's the current date and time.", "Let me show you the date and time."],
-        "suggest anime": ["Sure! What genre are you interested in?", "I can suggest anime based on different genres. What genre do you prefer?"],
-        "bye": ["Goodbye!,sir have a nice day", "Bye!"]
-    }
-
     print("Hi! I'm Friday. What's your name?")
-    speak("Hi! I'm Friday. What's your name?")
-    name = input()
-    print(f"Nice to meet you, {name}!")
-    speak(f"Nice to meet you, {name}!")
-    print("How may I help you?")
-    speak("How may I help you?")
-
+    user_name = input()
+    print("Nice to meet you, " + user_name + "!")
+    speak("Nice to meet you, " + user_name + "!")
+    
     while True:
-        user_input = input("Text something: ")
-
-        if user_input.lower() == "bye":
-            print(random.choice(responses["bye"]))
-            speak(random.choice(responses["bye"]))
-            break
-        elif "open website" in user_input.lower():
-            print(random.choice(responses["open website"]))
-            speak(random.choice(responses["open website"]))
-            website_url = input("Please enter the website URL: ")
+        print("How may I help you?")
+        print("You can type 'help' to see the list of commands.")
+        user_input = input("Text something: ").lower()
+        
+        if 'open website' in user_input:
+            print("Which website would you like to open?")
+            website_url = input("Enter the website URL: ")
             open_website(website_url)
-        elif "open camera" in user_input.lower():
-            print(random.choice(responses["open camera"]))
-            speak(random.choice(responses["open camera"]))
+        elif 'open camera' in user_input:
             open_camera()
-        elif "open camera app" in user_input.lower():
-            print(random.choice(responses["open camera app"]))
-            speak(random.choice(responses["open camera app"]))
+        elif 'open camera app' in user_input:
             open_camera_app()
-        elif "show date and time" in user_input.lower():
-            print(random.choice(responses["show date and time"]))
-            speak(random.choice(responses["show date and time"]))
+        elif 'show date and time' in user_input:
             show_datetime()
-        elif "introduce yourself" in user_input.lower():
+        elif 'introduce yourself' in user_input:
             introduce_yourself()
-        elif "suggest anime" in user_input.lower():
-            print(random.choice(responses["suggest anime"]))
-            speak(random.choice(responses["suggest anime"]))
-            user_genre = input("Please enter the genre you are interested in: ")
-            suggest_anime(user_genre)
+        elif 'suggest anime' in user_input:
+            print("Sure! What genre are you interested in?")
+            genre = input("Please enter the genre you are interested in: ")
+            suggest_anime(genre)
+        elif 'calculate' in user_input or 'calculation' in user_input:
+            calculator()
+        elif 'bye' in user_input:
+            print("Goodbye! Have a great day!")
+            speak("Goodbye! Have a great day!")
+            break
+        elif 'help' in user_input:
+            print("Here are some commands you can use:")
+            print("'open website' - Opens a specified website")
+            print("'open camera' - Opens the default camera")
+            print("'open camera app' - Opens the default camera application")
+            print("'show date and time' - Displays the current date and time")
+            print("'introduce yourself' - Introduces the chatbot")
+            print("'suggest anime' - Suggests an anime based on the genre you provide")
+            print("'calculate' or 'calculation' - Opens the calculator for basic operations")
+            print("'bye' - Exits the chatbot")
         else:
-            for key in responses:
-                if key in user_input.lower():
-                    if callable(responses[key]):
-                        responses[key]()
-                    else:
-                        print(random.choice(responses[key]))
-                        speak(random.choice(responses[key]))
-                    break
+            print("I'm sorry, I didn't understand that. Please try again or type 'help' to see the list of commands.")
 
-chatbot()
+if __name__ == "__main__":
+    chatbot()
